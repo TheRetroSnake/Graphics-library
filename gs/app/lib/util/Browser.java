@@ -10,6 +10,7 @@ import java.net.URL;
 
 public class Browser {
 
+    /* open URL from string */
     public static boolean Open(String url){
         try {
             return Open(new URL(url).toURI());
@@ -24,9 +25,11 @@ public class Browser {
         return false;
     }
 
+    /* open URL from URI object */
     public static boolean Open(URI uri) {
         if(Desktop.isDesktopSupported()){
             try {
+                /* open the URL */
                 Desktop.getDesktop().browse(uri);
                 return true;
 

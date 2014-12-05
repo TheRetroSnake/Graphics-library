@@ -5,49 +5,70 @@ import java.awt.event.KeyListener;
 
 public class KeyUtil implements KeyListener {
 
+    /* states of buttons
+     * bit 0 = pressed state
+     * bit 1 = held state */
     private static byte[] states;
 
+    /* create a new KeyUtil */
     public KeyUtil(){
         states = new byte[KeyEvent.VK_CONTEXT_MENU + 1];
     }
 
+    /* if key is typed (empty) */
     @Override
     public void keyTyped(KeyEvent e) {
 
     }
 
+    /* if key is pressed */
     @Override
     public void keyPressed(KeyEvent e) {
+        /* if keycode isnt bigger than the max amount */
         if(e.getKeyCode() < states.length){
+            /* set pressed + held state for the key */
             states[e.getKeyCode()] = 3;
         }
     }
 
+    /* if key is released */
     @Override
     public void keyReleased(KeyEvent e) {
+        /* if keycode isnt bigger than the max amount */
         if(e.getKeyCode() < states.length){
+            /* removed held state */
             states[e.getKeyCode()] &= 1;
         }
     }
 
+    /* check if held */
     public static boolean isHeld(int Button){
+        /* return held state */
         return (states[Button] & 2) != 0;
     }
 
+    /* check if pressed */
     public static boolean isPressed(int Button){
+        /* return pressed state */
         return (states[Button] & 1) != 0;
     }
 
+    /* clear pressed states */
     public static void clearPresses(){
+        /* list through all states */
         for(int i = 0;i < states.length;i ++){
-            states[i] = 0;
+            /* clear pressed state */
+            states[i] &= 2;
         }
     }
 
+    /* get string from button */
     public static String toString(int Button){
+        /* return a direct string */
         return KeyEvent.getKeyText(Button);
     }
 
+    /* get shorter string from button */
     public static String toShortString(int Button){
         if(Button == COMMA) {
             return ",";
@@ -129,6 +150,7 @@ public class KeyUtil implements KeyListener {
         return toString(Button);
     }
 
+    /* definitions for key names */
     public static final int CANCEL =       KeyEvent.VK_CANCEL;      // 0x03
 
     public static final int BACKSPACE =    KeyEvent.VK_BACK_SPACE;  // 0x08

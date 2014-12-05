@@ -10,13 +10,13 @@ import java.awt.event.MouseListener;
 public class MouseUtil implements MouseListener {
 
     public MouseUtil(){
-        states = new boolean[RIGHT + 1][2];
+        states = new byte[RIGHT + 1];
     }
 
     public static final int LEFT =   MouseEvent.BUTTON1;
     public static final int RIGHT =  MouseEvent.BUTTON3;
     public static final int MIDDLE = MouseEvent.BUTTON2;
-    private static boolean[][] states;
+    private static byte[] states;
     private static boolean inProgram;
 
     public static Point getPoint(){
@@ -48,16 +48,16 @@ public class MouseUtil implements MouseListener {
     }
 
     public static boolean isPressed(int Button){
-        return states[Button][0];
+        return (states[Button] & 1) != 0;
     }
 
     public static boolean isHeld(int Button){
-        return states[Button][1];
+        return (states[Button] & 2) != 0;
     }
 
     public static void clearPresses(){
         for(int i = 0;i < states.length;i ++){
-            states[i][0] = false;
+            states[i] &= 2;
         }
     }
 
@@ -68,12 +68,12 @@ public class MouseUtil implements MouseListener {
 
     @Override
     public void mousePressed(MouseEvent e) {
-        states[e.getButton()] = new boolean[]{ true, true };
+        states[e.getButton()] = 3;
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        states[e.getButton()][1] = false;
+        states[e.getButton()] &= 1;
     }
 
     @Override

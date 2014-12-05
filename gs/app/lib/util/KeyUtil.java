@@ -5,10 +5,10 @@ import java.awt.event.KeyListener;
 
 public class KeyUtil implements KeyListener {
 
-    private static boolean[][] states;
+    private static byte[] states;
 
     public KeyUtil(){
-        states = new boolean[KeyEvent.VK_CONTEXT_MENU + 1][2];
+        states = new byte[KeyEvent.VK_CONTEXT_MENU + 1];
     }
 
     @Override
@@ -19,28 +19,28 @@ public class KeyUtil implements KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
         if(e.getKeyCode() < states.length){
-            states[e.getKeyCode()] = new boolean[]{ true, true };
+            states[e.getKeyCode()] = 3;
         }
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
         if(e.getKeyCode() < states.length){
-            states[e.getKeyCode()][1] = false;
+            states[e.getKeyCode()] &= 1;
         }
     }
 
     public static boolean isHeld(int Button){
-        return states[Button][1];
+        return (states[Button] & 2) != 0;
     }
 
     public static boolean isPressed(int Button){
-        return states[Button][0];
+        return (states[Button] & 1) != 0;
     }
 
     public static void clearPresses(){
         for(int i = 0;i < states.length;i ++){
-            states[i][0] = false;
+            states[i] = 0;
         }
     }
 

@@ -154,4 +154,12 @@ public class FileUtil {
     public static File toFile(String file){
         return new File(file);
     }
+
+    public static File getJarFile(){
+        return new File(".");
+    }
+
+    public static String getJarFolder(){
+        return getJarFile().getAbsolutePath();
+    }
 }

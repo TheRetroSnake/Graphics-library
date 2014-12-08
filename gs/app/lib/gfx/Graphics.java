@@ -23,6 +23,11 @@ public class Graphics {
         g.dispose();
     }
 
+    /* get graphics object */
+    public Graphics2D getGfx(){
+        return g;
+    }
+
     /* fill rectangle with current color */
     public void fillRect(int x, int y, int width, int height){
         g.fillRect(x, y, width, height);

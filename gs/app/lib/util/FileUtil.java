@@ -1,6 +1,10 @@
 package gs.app.lib.util;
 
+import gs.app.lib.application.App;
+
 import java.io.*;
+import java.net.URISyntaxException;
+import java.net.URLDecoder;
 
 public class FileUtil {
 
@@ -197,12 +201,20 @@ public class FileUtil {
     }
 
     /* get folder where the jar files exists */
-    public static File getJarFile(){
-        return new File(".");
+    public static File getJarFile() throws URISyntaxException {
+        /* yet again did a new fix. Hopefully I don't need to come back to this pile of shit anymore */
+        return new File(FileUtil.class.getResource(FileUtil.class.getSimpleName() +".class").getFile().split("file:")[0]);
     }
 
     /* get absolute path of jar file folder */
-    public static String getJarFolder(){
-        return getJarFile().getAbsolutePath();
+    public static String getJarFolder() {
+        try {
+            return getJarFile().getAbsolutePath();
+
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
+
+        return null;
     }
 }

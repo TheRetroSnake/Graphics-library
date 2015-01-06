@@ -1,5 +1,7 @@
 package gs.app.lib.math;
 
+import java.awt.*;
+
 public class bounds {
     /* variables for position */
     public int x;
@@ -49,5 +51,20 @@ public class bounds {
     /* compare bound objects */
     public boolean compare(bounds other){
         return other.x == x && other.y == y && other.w == w && other.h == h;
+    }
+
+    /* returns Java.awt.Rectangle object from these bounds */
+    public Rectangle toRectangle(){
+        return new Rectangle(x, y, w, h);
+    }
+
+    /* returns new bounds object from current boundaries, using width and height as positions instead of sizes */
+    public bounds toCoordinates(){
+        return new bounds(x, y, x + w, y + h);
+    }
+
+    @Override
+    public String toString(){
+        return getClass().getName() +"[x="+ x +",y="+ y +",width="+ w +",height="+ h +']';
     }
 }

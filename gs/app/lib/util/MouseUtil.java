@@ -44,7 +44,7 @@ public class MouseUtil implements MouseListener {
         }
 
         /* if not in program, return bullshit value */
-        return -1000;
+        return Integer.MIN_VALUE;
     }
 
     public static int getY(){
@@ -54,7 +54,7 @@ public class MouseUtil implements MouseListener {
         }
 
         /* if not in program, return bullshit values */
-        return -1000;
+        return Integer.MIN_VALUE;
     }
 
     /* return pressed button state */
@@ -73,6 +73,11 @@ public class MouseUtil implements MouseListener {
             /* remove pressed state */
             states[i] &= 2;
         }
+    }
+
+    /* returns if the mouse is inside the program */
+    public static boolean isInWindow(){
+        return inProgram;
     }
 
     /* if mouse is clicked */
